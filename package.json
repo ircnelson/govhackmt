@@ -1,0 +1,19 @@
+{
+  "name": "hotzii",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ircnelson/govhackmt.git"
+  },
+  "author": "Hotzii Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ircnelson/govhackmt/issues"
+  },
+  "homepage": "https://github.com/ircnelson/govhackmt#readme"
+}
