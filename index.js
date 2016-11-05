@@ -6,12 +6,15 @@ const GOOGLE_API_KEY = 'AIzaSyAvNHqD6-r7wB6_MCEdcOcyuH4JNosSjlM';
 var list;
 var GOOGLE_API = (address) => `https://maps.google.com/maps/api/geocode/json?key=${GOOGLE_API_KEY}&address=${encodeURI(address)}`;
 
+var sleep = () => console.log('zzzzz');
+
 fs.readFile('dados.json', 'utf8', function (err, data) {
 	if (err) throw err;
 	
 	list = JSON.parse(data);
 
-	for (var y = 1; y <= 6; y++) {	
+	for (var y = 1; y <= 6; y++) {
+		setTimeout(sleep, 3000);
 
 		list = list.slice(0 , 500);
 
