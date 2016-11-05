@@ -1,59 +1,49 @@
 var fs = require('fs');
-var request = require('request');
+var request = require('sync-request');
 
-const GOOGLE_API_KEY = 'AIzaSyAvNHqD6-r7wB6_MCEdcOcyuH4JNosSjlM';
+const GOOGLE_API_KEY = 'AIzaSyDJANTKRX1FwDk736OMe3-z6JFIJ9Yp0hw';
 
 var list;
 var GOOGLE_API = (address) => `https://maps.google.com/maps/api/geocode/json?key=${GOOGLE_API_KEY}&address=${encodeURI(address)}`;
 
 var sleep = () => console.log('zzzzz');
 
-fs.readFile('dados.json', 'utf8', function (err, data) {
-	if (err) throw err;
+fs.readFile('dados.json', 'utf8', function(err, data) {
+    if (err) throw err;
+
+    list = JSON.parse(data);
 	
-	list = JSON.parse(data);
+	//list = list.slice(0, 1);
 
-	for (var y = 1; y <= 10; y++) {
-		setTimeout(sleep, 3000);
+	for (var i in list) {
 
-		list = list.slice(0 , 300);
+		var item = list[i];
+		var address = `${item["NM_BAIRRO"]}, ${item["NM_LOGRADO"]}, ${item["NU_NUMERO"]}, Cuiabá, MT`;
 
-		for (var i in list) {
+		var rawData = '';
 
-			var item = list[i];
-			var address = `${item["NM_BAIRRO"]}, ${item["NM_LOGRADO"]}, ${item["NU_NUMERO"]}, Cuiabá, MT`;
-			
-			var rawData = '';
-			
-			var uri = GOOGLE_API(address);
-			console.log(uri);
+		var uri = GOOGLE_API(address);
+		console.log(uri);
 
-			request(uri, (error, res, body) => {
-				if (error != null) {
-					console.log('error', error);
-				}
+		var response = request('GET', uri);
 
-				var data = JSON.parse(body);
+		if (response) {
+			var data = JSON.parse(response.getBody());
 
-				var firstResult = data.results[0];
+			var firstResult = data.results[0];
 
-				if (firstResult == null) { console.log("empty result.\n item: " + i);  }
+			if (!firstResult) { console.log("empty result.\n item: " + i); }
 
-				else if (!firstResult.geometry || !firstResult.geometry.location) { console.log("nao foi possivel obter a lat e lng"); }
-				else {
-	 				var latLng = firstResult.geometry.location;
+			else if (!firstResult.geometry || !firstResult.geometry.location) { console.log("nao foi possivel obter a lat e lng"); }
+			else {
+				var latLng = firstResult.geometry.location;
 
-					item["POINTS"] = latLng;
+				item["POINTS"] = latLng;
 
-					fs.appendFile("dados_lat_long.json", JSON.stringify(item) + ",\n", function(err) {
-					
-						if (err) { return console.log(err); }
-
-						console.log("item:", i);
-						console.log("The file was saved!");
-					});
-				}
-			});
+				console.log("item:", i);
+				fs.appendFileSync("dados_lat_long.json", JSON.stringify(item) + ",\n");				
+				console.log("The file was saved!", i);
+			}
 		}
-	}	
+	}
 });
