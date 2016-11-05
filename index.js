@@ -8,7 +8,7 @@ var GOOGLE_API = (address) => `https://maps.google.com/maps/api/geocode/json?key
 
 var sleep = () => console.log('zzzzz');
 
-fs.readFile('dados.json', 'utf8', function (err, data) {
+fs.readFile('dados2.json', 'utf8', function (err, data) {
 	if (err) throw err;
 	
 	list = JSON.parse(data);
@@ -45,7 +45,7 @@ fs.readFile('dados.json', 'utf8', function (err, data) {
 
 					item["POINTS"] = latLng;
 
-					fs.appendFile("dados_lat_long.json", JSON.stringify(item) + ",\n", function(err) {
+					fs.appendFile("dados_lat_long2.json", JSON.stringify(item) + ",\n", function(err) {
 					
 						if (err) { return console.log(err); }
 
