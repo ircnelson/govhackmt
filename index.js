@@ -13,10 +13,10 @@ fs.readFile('dados.json', 'utf8', function (err, data) {
 	
 	list = JSON.parse(data);
 
-	for (var y = 1; y <= 6; y++) {
+	for (var y = 1; y <= 10; y++) {
 		setTimeout(sleep, 3000);
 
-		list = list.slice(0 , 500);
+		list = list.slice(0 , 300);
 
 		for (var i in list) {
 
