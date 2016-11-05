@@ -39,21 +39,51 @@
 </head>
 
 <body>
-<!-- <div id="floating-panel">
-<button onclick="toggleHeatmap()">Toggle Heatmap</button>
-<button onclick="changeGradient()">Change gradient</button>
-<button onclick="changeRadius()">Change radius</button>
-<button onclick="changeOpacity()">Change opacity</button>
-</div> -->
+
+<?php 
+    error_reporting(E_ALL); 
+    ini_set("display_errors", 1); 
+
+    $str = file_get_contents('dados.json');
+
+    $json = json_decode($str, true);
+
+    foreach ($json as $key => $value) {
+        if($key <= 1) {
+            $number = $value['NU_NUMERO'];
+            $rua = $value['NM_LOGRADO'];
+            $rua = str_replace(' ','', $rua);
+            $city = 'Cuiaba';
+            $state = 'MT';
+
+            $opt = urlencode($number .'+'. $rua .'+'. $city .'+'. $state);
+
+            $link = 'https://maps.google.com/maps/api/geocode/json?key=AIzaSyDJANTKRX1FwDk736OMe3-z6JFIJ9Yp0hw&address='. $opt;
+
+            $json = file_get_contents($link);
+            $data = json_decode($json);
+
+            $lat = $data->results[0]->geometry->location->lat;
+            $log = $data->results[0]->geometry->location->lng;
+
+            $mapsLatLong[$key] = ['lat' =>  $lat, 'log' => $log];
+        }
+    }
+
+    $itens = json_encode($mapsLatLong);
+
+?>
+
 <div id="map"></div>
 <script>
+    var itens = JSON.parse('<?php echo $itens ?>');
 
     var map, heatmap;
 
     function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 6,
-            center: {lat: -13.4944, lng: -56.0456},
+            zoom: 12,
+            center: {lat: -15.587909, lng: -56.111856},
             mapTypeId: google.maps.MapTypeId.MAPS
         });
 
@@ -96,32 +126,17 @@
     }
 
     function getPoints() {
-        return [
-        new google.maps.LatLng(-15.5804885, -56.1044633),
-        new google.maps.LatLng(-15.5804885, -56.1044633),
-        new google.maps.LatLng(-15.5804885, -56.1044633),
-        new google.maps.LatLng(-15.5804885, -56.1044633),
-        new google.maps.LatLng(-15.5804885, -56.1044633),
-        new google.maps.LatLng(-15.5804885, -56.1044633),
-        new google.maps.LatLng(-15.5804885, -56.1044633),
-        new google.maps.LatLng(-15.5804885, -56.1044633),
-        new google.maps.LatLng(-15.5804885, -56.1044633),
-        new google.maps.LatLng(-15.5804885, -56.1044633),
-        new google.maps.LatLng(-15.5804885, -56.1044633),
-        new google.maps.LatLng(-15.5804885, -56.1044633),
-        new google.maps.LatLng(-15.5804885, -56.1044633),
-        new google.maps.LatLng(-15.5804885, -56.1044633),
-        new google.maps.LatLng(-15.5804885, -56.1044633),
-        new google.maps.LatLng(-15.5804885, -56.1044633),
-        new google.maps.LatLng(-15.5804885, -56.1044633),
-        new google.maps.LatLng(-15.5804885, -56.1044633),
-        new google.maps.LatLng(-15.5804885, -56.1044633)
-        ];
+        var arrayPoints= [];
+        for (var i = 0; i < itens.length; i++) {
+            console.log(itens[i].lat, itens[i].log);
+            arrayPoints.push(new google.maps.LatLng(itens[i].lat, itens[i].log));
+        }
+        return arrayPoints;
     }
 
 </script>
 <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDBKI9rS4pIOXiHRHRqT8A9niuAViO6Fy0&signed_in=true&libraries=visualization&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJANTKRX1FwDk736OMe3-z6JFIJ9Yp0hw&signed_in=true&libraries=visualization&callback=initMap">
 </script>
 </body>
 </html>

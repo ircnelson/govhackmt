@@ -10,43 +10,47 @@ fs.readFile('dados.json', 'utf8', function (err, data) {
 	if (err) throw err;
 	list = JSON.parse(data);
 
-	//list = list.slice(0, 10);
 
-	for (var i in list) {
+	for (var y = 1; y >= 6; y++) {	
 
-		let item = list[i];
-		let address = `${item["NM_BAIRRO"]}, ${item["NM_LOGRADO"]}, ${item["NU_NUMERO"]}, Cuiabá, MT`;
-		
-		let rawData = '';
-		
-		var uri = GOOGLE_API(address);
-		console.log(uri);
+		list = list.slice(0 , 500);
 
-		request(uri, (error, res, body) => {
-			if (error != null) {
-				console.log('error', error);
-			}
+		for (var i in list) {
 
-			var data = JSON.parse(body);
+			let item = list[i];
+			let address = `${item["NM_BAIRRO"]}, ${item["NM_LOGRADO"]}, ${item["NU_NUMERO"]}, Cuiabá, MT`;
+			
+			let rawData = '';
+			
+			var uri = GOOGLE_API(address);
+			console.log(uri);
 
-			var firstResult = data.results[0];
+			request(uri, (error, res, body) => {
+				if (error != null) {
+					console.log('error', error);
+				}
 
-			if (firstResult == null) { console.log("empty result.\n item: " + i);  }
+				var data = JSON.parse(body);
 
-			else if (!firstResult.geometry || !firstResult.geometry.location) { console.log("nao foi possivel obter a lat e lng"); }
-			else {
- 				var latLng = firstResult.geometry.location;
+				var firstResult = data.results[0];
 
-				item["POINTS"] = latLng;
+				if (firstResult == null) { console.log("empty result.\n item: " + i);  }
 
-				fs.appendFile("dados_lat_long.json", JSON.stringify(item) + ",\n", function(err) {
-				
-					if (err) { return console.log(err); }
+				else if (!firstResult.geometry || !firstResult.geometry.location) { console.log("nao foi possivel obter a lat e lng"); }
+				else {
+	 				var latLng = firstResult.geometry.location;
 
-					console.log("item:", i);
-					console.log("The file was saved!");
-				});
-			}
-		});
-	}
+					item["POINTS"] = latLng;
+
+					fs.appendFile("dados_lat_long.json", JSON.stringify(item) + ",\n", function(err) {
+					
+						if (err) { return console.log(err); }
+
+						console.log("item:", i);
+						console.log("The file was saved!");
+					});
+				}
+			});
+		}
+	}	
 });

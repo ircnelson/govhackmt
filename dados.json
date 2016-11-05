@@ -2,51 +2,6 @@
   {
     "IDADE": "25a",
     "ID_MN_RESI": 510340,
-    "NM_BAIRRO": "CPA 3",
-    "NM_LOGRADO": "RUA 46 QD 15",
-    "NU_NUMERO": 23,
-    "ID_GEO1": "",
-    "ID_GEO2": ""
-  },
-  {
-    "IDADE": "36a",
-    "ID_MN_RESI": 510340,
-    "NM_BAIRRO": "JARDIM FLORIANOPOLIS (NORTE)",
-    "NM_LOGRADO": "RUA 24 QDRA 18",
-    "NU_NUMERO": 6,
-    "ID_GEO1": "",
-    "ID_GEO2": ""
-  },
-  {
-    "IDADE": "7a",
-    "ID_MN_RESI": 510340,
-    "NM_BAIRRO": "TRES BARRAS (NORTE)",
-    "NM_LOGRADO": "RUA 29 QDRA 37",
-    "NU_NUMERO": 406,
-    "ID_GEO1": "",
-    "ID_GEO2": ""
-  },
-  {
-    "IDADE": "28a",
-    "ID_MN_RESI": 510340,
-    "NM_BAIRRO": "PRAEIRO (LESTE)",
-    "NM_LOGRADO": "RUA PAQUITA",
-    "NU_NUMERO": "",
-    "ID_GEO1": "",
-    "ID_GEO2": ""
-  },
-  {
-    "IDADE": "3a",
-    "ID_MN_RESI": 510340,
-    "NM_BAIRRO": "SOL NASCENTE (LESTE)",
-    "NM_LOGRADO": "RUA M QD 14 LOTE 30",
-    "NU_NUMERO": "",
-    "ID_GEO1": "",
-    "ID_GEO2": ""
-  },
-  {
-    "IDADE": "25a",
-    "ID_MN_RESI": 510340,
     "NM_BAIRRO": "SANTA LAURA (SUL)",
     "NM_LOGRADO": "RUA MARAJOARA",
     "NU_NUMERO": 62,
