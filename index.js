@@ -10,7 +10,7 @@ fs.readFile('dados.json', 'utf8', function (err, data) {
 	if (err) throw err;
 	list = JSON.parse(data);
 
-	list = list.slice(0, 10);
+	//list = list.slice(0, 10);
 
 	for (var i in list) {
 
@@ -28,15 +28,25 @@ fs.readFile('dados.json', 'utf8', function (err, data) {
 			}
 
 			var data = JSON.parse(body);
-			
-			item["POINTS"] = data.results[0].geometry.location;
 
-			fs.writeFile("dados_lat_long.json", JSON.stringify(item) + ", ", function(err) {
+			var firstResult = data.results[0];
+
+			if (firstResult == null) { console.log("empty result.\n item: " + i);  }
+
+			else if (!firstResult.geometry || !firstResult.geometry.location) { console.log("nao foi possivel obter a lat e lng"); }
+			else {
+ 				var latLng = firstResult.geometry.location;
+
+				item["POINTS"] = latLng;
+
+				fs.appendFile("dados_lat_long.json", JSON.stringify(item) + ",\n", function(err) {
 				
-				if (err) { return console.log(err); }
+					if (err) { return console.log(err); }
 
-				console.log("The file was saved!");
-			});
+					console.log("item:", i);
+					console.log("The file was saved!");
+				});
+			}
 		});
 	}
 });
