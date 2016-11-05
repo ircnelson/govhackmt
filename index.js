@@ -8,19 +8,19 @@ var GOOGLE_API = (address) => `https://maps.google.com/maps/api/geocode/json?key
 
 fs.readFile('dados.json', 'utf8', function (err, data) {
 	if (err) throw err;
+	
 	list = JSON.parse(data);
 
-
-	for (var y = 1; y >= 6; y++) {	
+	for (var y = 1; y <= 6; y++) {	
 
 		list = list.slice(0 , 500);
 
 		for (var i in list) {
 
-			let item = list[i];
-			let address = `${item["NM_BAIRRO"]}, ${item["NM_LOGRADO"]}, ${item["NU_NUMERO"]}, Cuiabá, MT`;
+			var item = list[i];
+			var address = `${item["NM_BAIRRO"]}, ${item["NM_LOGRADO"]}, ${item["NU_NUMERO"]}, Cuiabá, MT`;
 			
-			let rawData = '';
+			var rawData = '';
 			
 			var uri = GOOGLE_API(address);
 			console.log(uri);
