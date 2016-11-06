@@ -84,22 +84,27 @@
 
             $.get(bairrosAgrupados, function(data) {
                 var option = '';
-                var top10 = '<table class="table table-striped table-bordered"><tr class="header"><td>Ordem</td><td>Nome</td><td>Ocorrências</td></tr>';
-
+                
                 for (var i = 0; i < data.length; i++) {
                     option += '<option value="'+ data[i]._id + '">' + data[i]._id + '</option>';
                 }
 
+                $('.selectBairros').append(option);
+            });
+
+            var bairrosRank =  'http://felipefontana.com.br:49160/bairros/rank';
+
+            $.get(bairrosRank, function(data) {
+                var top10 = '<table class="table table-striped table-bordered"><tr class="header"><td>Ordem</td><td>Nome</td><td>Ocorrências</td></tr>';
+
                 for (var i = 0; i < 10; i++) {
                     var y = i+1;
-                    top10 += '<tr><td>'+ y +'</td><td>'+ data[i]._id +'</td> <td><span style="color:red">'+ data[i].count +'</span></td></tr>'
+                    top10 += '<tr><td>'+ y +'</td><td>'+ data[i]._id +'</td> <td><span style="color:red">'+ data[i].count +'</span></td></tr>';
                 }
+                
                 top10 += '</table>';
 
                 $('#top10').html(top10);
-
-                $('.selectBairros').append(option);
-
             });
 
             $('.selectBairros').on('change', function(){
