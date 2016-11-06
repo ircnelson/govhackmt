@@ -2,7 +2,6 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    /*background-color: #eeeeee;*/
 }
 .top{
     margin-top: 30px;
@@ -37,8 +36,13 @@ html, body {
 .menu .subtitle{
     font-style: italic;
     font-weight: 200;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 .menu table {
     font-size: 12px;
+    width: 100%;
+    text-align: center;
+}
+.menu table .header {
+    font-weight: bold;
 }
