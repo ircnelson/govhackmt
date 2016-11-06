@@ -1,13 +1,15 @@
 FROM node:argon
 
+# Create app directory
 RUN mkdir -p /usr/src/app
-WORKDIR /usr/www/felipefontana/public_html/govhackmt/api
+WORKDIR /usr/src/app
 
-COPY package.json /usr/www/felipefontana/public_html/govhackmt
+# Install app dependencies
+COPY package.json /usr/src/app/
 RUN npm install
 
+# Bundle app source
 COPY . /usr/src/app
 
 EXPOSE 8080
-
 CMD [ "node", "index.js" ]
