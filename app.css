@@ -1,0 +1,44 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    /*background-color: #eeeeee;*/
+}
+.top{
+    margin-top: 30px;
+}
+#map {
+    height: 100%;
+}
+
+#ex1Slider .slider-selection {
+    background: #BABABA;
+}
+.divider {
+    content:"";
+    display:block;
+    clear:both;
+}
+.menu {
+    text-align: center;
+}
+
+.menu h4 {
+    font-weight: bold;
+}
+
+.menu  .title b{
+    color: black;
+    font-size: 30px;
+}
+.menu .title .b-red {
+    color: #ce4844;
+}
+.menu .subtitle{
+    font-style: italic;
+    font-weight: 200;
+    margin-bottom: 20px;
+}
+.menu table {
+    font-size: 12px;
+}

@@ -6,45 +6,19 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.4.1/css/bootstrap-slider.min.css">
-    <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            /*background-color: #eeeeee;*/
-        }
-        .top{
-            margin-top: 30px;
-        }
-        #map {
-            height: 100%;
-        }
-
-        #ex1Slider .slider-selection {
-            background: #BABABA;
-        }
-    </style>
+    <link rel="stylesheet" href="app.css">
 </head>
 
 <body>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="#"><b style="color:black">Hot</b><b style="color:#ce4844">Zii</b></a>
-            </div>
-        </div>
-    </nav>
-    <div class="col-md-4" align="center">
-        <div class="top"></div>
-        <div class="form-group">
-            <button onclick="toggleHeatmap()" class="btn btn-primary">Mostrar/Esconder Mapa </button>
-        </div>
-
-        <hr>
+    <div class="col-md-4 menu">
+        <div class="title">
+            <b>Hot</b><b class="b-red">Zii</b>
+            <div class="divider"></div>
+            <div class="subtitle">Você de olho no foco!</div>
+        </div> 
         <div class="form-group">
             <label>Selecione o ano desejada:</label><br>
             <b>2000</b> 
@@ -60,7 +34,7 @@
         </div> 
         <hr>
         <div class="row">
-            <h3>Selecione os bairros que deseja comparar:</h3>
+            <h4>Selecione os bairros que deseja comparar:</h4>
             <div class="form-group col-md-6">
                 <label>Bairro 1</label>
                 <select class="form-control selectBairros" id="selectBairros1">
@@ -75,16 +49,12 @@
             </div>
         </div>
         <hr>
-
-
         <div class="form-group">
-            <h3><b>Ranking de bairros</b></h3>
+            <h4>Ranking de bairros</h4>
             <div id="top10"></div>
         </div>
-
     </div>
     <div id="map"></div>    
-    
     <script
         src="https://code.jquery.com/jquery-3.1.1.min.js"
         integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
@@ -102,7 +72,6 @@
     </script>
 
     <script>
-
         $(document).ready(function(){
             $('#ex1').slider({
                 formatter: function(value) {
@@ -180,10 +149,6 @@
             });
         }
 
-        function toggleHeatmap() {
-            heatmap.setMap(heatmap.getMap() ? null : map);
-        }
-
         function getPoints(cb) {
             var arrayPoints= [];
 
@@ -196,8 +161,7 @@
 
                 cb(arrayPoints);
             });
-        }
-        
+        }     
     </script>
    
     <script async defer
