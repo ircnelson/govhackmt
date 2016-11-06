@@ -1,8 +1,10 @@
 
 $(document).ready(function(){
+    
     $('#table-reference').hide();
-     $('#infos1tr').hide();
-     $('#infos2tr').hide();
+    $('#infos1tr').hide();
+    $('#infos2tr').hide();
+
     var bairrosAgrupados =  'http://felipefontana.com.br:49160/bairros/agrupados';
 
     $.get(bairrosAgrupados, function(data) {
@@ -68,8 +70,7 @@ function getPoints(cb) {
     });
 }
 
-function clearSelects()
-{
+function clearSelects() {
     $('#selectBairros1').val('');
 
     $('#selectBairros2').val('');
@@ -77,8 +78,7 @@ function clearSelects()
     newPlot();
 } 
 
-function newPlot()
-{
+function newPlot() {
     var selectBairros1 = $('#selectBairros1');
     var selectBairros1Val = $('#selectBairros1').val();
     var selectBairros2 = $('#selectBairros2');
