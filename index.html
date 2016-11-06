@@ -108,29 +108,30 @@
 
                 if(selectBairros1 && !selectBairros2){
                     var bairrosDetail =  'http://felipefontana.com.br:49160/bairros/'+ selectBairros1;
-                else if(!selectBairros1 && selectBairros2)
-                    var bairrosDetail =  'http://felipefontana.com.br:49160/bairros/'+ selectBairros2;
-                else
-                    var bairrosDetail =  'http://felipefontana.com.br:49160/bairros/'+ selectBairros1 +','+ selectBairros2;
-
-                    var arrayPoints= [];
-
-                    $.get(bairrosDetail, function(data) {
-                        
-                        for (var i = 0; i < data.length; i++) {
-                            arrayPoints.push(new google.maps.LatLng(data[i].POINTS.lat, data[i].POINTS.lng));
-                        }
-
-                        heatmap.setMap(null);
-
-                        heatmap = new google.maps.visualization.HeatmapLayer({
-                            data: arrayPoints,
-                            map: map,
-                            maxIntensity: 5,
-                        });
-                        
-                    });
                 }
+                else if(!selectBairros1 && selectBairros2){
+                    var bairrosDetail =  'http://felipefontana.com.br:49160/bairros/'+ selectBairros2;
+                }
+                else {
+                    var bairrosDetail =  'http://felipefontana.com.br:49160/bairros/'+ selectBairros1 +','+ selectBairros2;
+                }
+                    
+                var arrayPoints= [];
+
+                $.get(bairrosDetail, function(data) {
+                    
+                    for (var i = 0; i < data.length; i++) {
+                        arrayPoints.push(new google.maps.LatLng(data[i].POINTS.lat, data[i].POINTS.lng));
+                    }
+
+                    heatmap.setMap(null);
+
+                    heatmap = new google.maps.visualization.HeatmapLayer({
+                        data: arrayPoints,
+                        map: map,
+                        maxIntensity: 5,
+                    });
+                });
             });
         });
 
