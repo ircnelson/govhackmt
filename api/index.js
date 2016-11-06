@@ -24,7 +24,7 @@ app.use(function(req, res, next) {
 app.get('/', function (req, res) {
 
     var message = `<p>Obter todos os bairros: <a href="/bairros/">/bairros/</a></p>` +
-                  `<p>Obter bairros rank: <a href="/bairros/rank">/bairros/rank</a></p>` +
+                  `<p>Obter rank dos bairros: <a href="/bairros/rank">/bairros/rank</a></p>` +
                   `<p>Obter bairros agrupados: <a href="/bairros/agrupados">/bairros/agrupados</a></p>` +
                   `<p>Obter bairros específicos: <a href="/bairros/pedra 90 i,cpa 3">/bairros/pedra 90 i,cpa 3</a></p>`;
     
@@ -33,9 +33,9 @@ app.get('/', function (req, res) {
 
 app.get('/bairros/rank', function (req, res) {
 
-    console.log('obtendo bairros agrupados por nome.');
+    console.log('obtendo rank de bairros.');
 
-    var result = places.aggregate([{ $group: { "_id": "$NM_BAIRRO", 'count': { $sum: 1 } } }, { $sort: { 'count': -1 } }]);
+    var result = places.aggregate([{ $group: { "_id": "$NM_BAIRRO", 'count': { $sum: 1 } } }, { $sort: { 'count': -1, '_id': 1 } }]);
     
     result.toArray(function (err, r) {
         return res.json(r);
@@ -46,7 +46,7 @@ app.get('/bairros/agrupados', function (req, res) {
 
     console.log('obtendo bairros agrupados por nome.');
 
-    var result = places.aggregate([{ $group: { "_id": "$NM_BAIRRO", } }, { $sort: { '_id': 1 } }]);
+    var result = places.aggregate([{ $group: { "_id": "$NM_BAIRRO", 'count': { $sum: 1 } } }, { $sort: { '_id': 1 } }]);
     
     result.toArray(function (err, r) {
         return res.json(r);
