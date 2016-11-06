@@ -14,6 +14,13 @@ MongoClient.connect('mongodb://felipefontana.com.br:27017/hotzii', function (err
     places = database.collection('places');
 });
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+
 app.get('/', function (req, res) {
 
     var message = `<p>Obter todos os bairros: <a href="/bairros/">/bairros/</a></p>` +
