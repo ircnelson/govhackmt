@@ -8,7 +8,6 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.4.1/css/bootstrap-slider.min.css">
     <link rel="stylesheet" href="app.css">
 </head>
 
@@ -19,20 +18,6 @@
             <div class="divider"></div>
             <div class="subtitle">Você de olho no foco!</div>
         </div> 
-        <!-- <div class="form-group">
-            <label>Selecione o ano desejada:</label><br>
-            <b>2000</b> 
-            <input id="ex1" 
-                type="text" 
-                class="span2" 
-                value="" 
-                data-slider-min="2000" 
-                data-slider-max="2016" 
-                data-slider-step="1" 
-                data-slider-value="[250,450]"/> 
-            <b>2016</b>
-        </div>  -->
-        <!-- <hr> -->
         <div class="row">
             <h4>Selecione os bairros que deseja comparar:</h4>
             <div class="form-group col-md-6">
@@ -48,7 +33,25 @@
                 </select>
             </div>
         </div>
-        <div class="infos" id="infos"></div>
+        <div class="row" id="table-reference">
+            <div class="col-md-12">
+            <p>Tabela de referências</p>
+                <table class="table table-striped table-bordered table-ocorrencias">
+                    <tr id="infos1tr">
+                        <td><div class="infos" id="infos1Name"></td>
+                        <td><div class="infos" id="infos1"></div></td>
+                    </tr>
+                    <tr id="infos2tr">
+                        <td><div class="infos" id="infos2Name"></td>
+                        <td><div class="infos" id="infos2"></div></td>
+                    </tr>
+                    <tr>
+                        <td>Ocorrências totais:</td>
+                        <td><div class="infos" id="infostotal"></div></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
         <hr>
         <div class="form-group">
             <h4>Ranking de bairros</h4>
@@ -68,112 +71,7 @@
         crossorigin="anonymous">    
     </script>
 
-    <script 
-        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/9.4.1/bootstrap-slider.min.js">
-    </script>
-
-    <script>
-        $(document).ready(function(){
-            $('#ex1').slider({
-                formatter: function(value) {
-                    return 'Valor Atual: ' + value;
-                }
-            });
-
-            var bairrosAgrupados =  'http://felipefontana.com.br:49160/bairros/agrupados';
-
-            $.get(bairrosAgrupados, function(data) {
-                var option = '';
-                
-                for (var i = 0; i < data.length; i++) {
-                    option += '<option value="'+ data[i]._id + '">' + data[i]._id + '</option>';
-                }
-
-                $('.selectBairros').append(option);
-            });
-
-            var bairrosRank =  'http://felipefontana.com.br:49160/bairros/rank';
-
-            $.get(bairrosRank, function(data) {
-                var top10 = '<table class="table table-striped table-bordered"><tr class="header"><td>Ordem</td><td>Nome</td><td>Ocorrências</td></tr>';
-
-                for (var i = 0; i < 10; i++) {
-                    var y = i+1;
-                    top10 += '<tr><td>'+ y +'</td><td>'+ data[i]._id +'</td> <td><span style="color:red">'+ data[i].count +'</span></td></tr>';
-                }
-                
-                top10 += '</table>';
-
-                $('#top10').html(top10);
-            });
-
-            $('.selectBairros').on('change', function(){
-
-                var selectBairros1 = $('#selectBairros1').val();
-                var selectBairros2 = $('#selectBairros2').val();
-
-                if(selectBairros1 && !selectBairros2){
-                    var bairrosDetail =  'http://felipefontana.com.br:49160/bairros/'+ selectBairros1;
-                }
-                else if(!selectBairros1 && selectBairros2){
-                    var bairrosDetail =  'http://felipefontana.com.br:49160/bairros/'+ selectBairros2;
-                }
-                else {
-                    var bairrosDetail =  'http://felipefontana.com.br:49160/bairros/'+ selectBairros1 +','+ selectBairros2;
-                }
-                    
-                var arrayPoints= [];
-
-                $.get(bairrosDetail, function(data) {
-                    for (var i = 0; i < data.length; i++) {
-                        arrayPoints.push(new google.maps.LatLng(data[i].POINTS.lat, data[i].POINTS.lng));
-                    }
-                    $('#infos').html('<p class="pull-left"> Ocorrências: <b>' + data.length + '</b></p><br>');
-
-                    heatmap.setMap(null);
-
-                    heatmap = new google.maps.visualization.HeatmapLayer({
-                        data: arrayPoints,
-                        map: map,
-                        maxIntensity: 8,
-                    });
-                });
-            });
-        });
-
-        var map, heatmap;
-
-        function initMap() {
-
-            map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 12,
-                center: {lat: -15.587909, lng: -56.111856},
-                mapTypeId: google.maps.MapTypeId.MAP
-            });
-
-            getPoints(function (data) {
-                heatmap = new google.maps.visualization.HeatmapLayer({
-                    data: data,
-                    map: map,
-                    maxIntensity: 8,
-                });
-            });
-        }
-
-        function getPoints(cb) {
-            var arrayPoints= [];
-
-            var url = 'http://felipefontana.com.br:49160/bairros';
-
-            $.get(url, function(data) {
-                for (var i = 0; i < data.length; i++) {
-                    arrayPoints.push(new google.maps.LatLng(data[i].POINTS.lat, data[i].POINTS.lng));
-                }
-
-                cb(arrayPoints);
-            });
-        }     
-    </script>
+    <script src="app.js"></script>
    
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBKX6aJncPUImvj4wLQTpn79sE1nfVw5Ms&&libraries=visualization&callback=initMap">

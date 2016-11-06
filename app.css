@@ -22,6 +22,11 @@ html, body {
     text-align: center;
 }
 
+.menu .table-ocorrencias{
+    text-align: left;
+    width:100%;
+}
+
 .menu h4 {
     font-weight: bold;
 }
