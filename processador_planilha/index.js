@@ -6,8 +6,6 @@ const GOOGLE_API_KEY = 'AIzaSyDJANTKRX1FwDk736OMe3-z6JFIJ9Yp0hw';
 var list;
 var GOOGLE_API = (address) => `https://maps.google.com/maps/api/geocode/json?key=${GOOGLE_API_KEY}&address=${encodeURI(address)}`;
 
-var sleep = () => console.log('zzzzz');
-
 fs.readFile('dados.json', 'utf8', function(err, data) {
     if (err) throw err;
 
@@ -47,7 +45,9 @@ fs.readFile('dados.json', 'utf8', function(err, data) {
 				item["RESULT"] = data.results || {};
 
 				console.log("item:", i);
+				
 				fs.appendFileSync("dados_lat_long.json", JSON.stringify(item) + ",\n");				
+				
 				console.log("The file was saved!", i);
 			}
 		}

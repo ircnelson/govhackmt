@@ -1,0 +1,10 @@
+{
+  "name": "hotzii-processador-planilha",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "request": "^2.78.0",
+    "sync-request": "^3.0.1"
+  }
+}
