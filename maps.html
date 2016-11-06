@@ -15,7 +15,7 @@
             height: 100%;
             margin: 0;
             padding: 0;
-            background-color: #eeeeee;
+            /*background-color: #eeeeee;*/
         }
         .top{
             margin-top: 30px;
@@ -31,36 +31,44 @@
 </head>
 
 <body>
-    <div class="col-md-3" align="center">
+    <div class="col-md-4" align="center">
         <div class="top"></div>
         <div class="form-group">
             <button onclick="toggleHeatmap()" class="btn btn-primary">Mostrar/Esconder Mapa </button>
         </div>
 
+        <hr>
         <div class="form-group">
-            <label>Selecione a categoria desejada:</label>
+            <label>Selecione o ano desejada:</label><br>
+            <b>2000</b> 
             <input id="ex1" 
-                data-slider-id='ex1Slider' 
                 type="text" 
-                data-slider-min="0" 
-                data-slider-max="20" 
+                class="span2" 
+                value="" 
+                data-slider-min="2000" 
+                data-slider-max="2016" 
                 data-slider-step="1" 
-                data-slider-value="14"
-            />
-        </div>  
+                data-slider-value="[250,450]"/> 
+            <b>2016</b>
+        </div> 
+        <hr>
+        <div class="row">
+            <h3>Selecione os bairros que deseja comparar:</h3>
+            <div class="form-group col-md-6">
+                <label>Bairro 1</label>
+                <select class="form-control selectBairros" id="selectBairros1">
+                    <option value="">Selecione...</option>
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label>Bairro 2</label>
+                <select class="form-control selectBairros" id="selectBairros2">
+                    <option value="">Selecione...</option>
+                </select>
+            </div>
+        </div>
+        <hr>
 
-        <div class="form-group">
-            <label>Selecione a categoria desejada:</label>
-            <select class="form-control selectBairros" id="selectBairros1">
-                <option value="">Selecione...</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Selecione a categoria desejada:</label>
-            <select class="form-control selectBairros" id="selectBairros2">
-                <option value="">Selecione...</option>
-            </select>
-        </div>
 
         <div class="form-group">
             <h3><b>Ranking de bairros</b></h3>
@@ -99,14 +107,15 @@
 
             $.get(bairrosAgrupados, function(data) {
                 var option = '';
-                var top10 = '<table width="100%">';
+                var top10 = '<table width="100%" style="text-align: center;" class="table table-striped table-bordered"><tr style="font-weight:bold; font-size: 16px;"><td>Ordem</td><td>Nome</td><td>Ocorrências</td></tr>';
 
                 for (var i = 0; i < data.length; i++) {
                     option += '<option value="'+ data[i]._id + '">' + data[i]._id + '</option>';
                 }
 
                 for (var i = 0; i < 10; i++) {
-                    top10 += '<tr><td>'+ data[i]._id +'</td> <td><span style="color:red">'+ data[i].count +'</span></td></tr>'
+                    var y = i+1;
+                    top10 += '<tr><td>'+ y +'</td><td>'+ data[i]._id +'</td> <td><span style="color:red">'+ data[i].count +'</span></td></tr>'
                 }
                 top10 += '</table>';
 
