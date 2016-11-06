@@ -34,7 +34,12 @@ fs.readFile('dados.json', 'utf8', function(err, data) {
 
 			if (!firstResult) { console.log("empty result.\n item: " + i); }
 
-			else if (!firstResult.geometry || !firstResult.geometry.location) { console.log("nao foi possivel obter a lat e lng"); }
+			else if (!firstResult.geometry || !firstResult.geometry.location) { 
+				console.log("nao foi possivel obter a lat e lng"); 
+			}
+			else if (firstResult == null || firstResult == 'undefined') { 
+				console.log("null or undefined"); 
+			}
 			else {
 				var latLng = firstResult.geometry.location;
 
