@@ -39,6 +39,7 @@ fs.readFile('dados.json', 'utf8', function(err, data) {
 				var latLng = firstResult.geometry.location;
 
 				item["POINTS"] = latLng;
+				item["RESULT"] = data.results;
 
 				console.log("item:", i);
 				fs.appendFileSync("dados_lat_long.json", JSON.stringify(item) + ",\n");				
