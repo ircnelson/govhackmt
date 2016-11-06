@@ -48,6 +48,7 @@
                 </select>
             </div>
         </div>
+        <div class="infos" id="infos"></div>
         <hr>
         <div class="form-group">
             <h4>Ranking de bairros</h4>
@@ -119,17 +120,17 @@
                 var arrayPoints= [];
 
                 $.get(bairrosDetail, function(data) {
-                    
                     for (var i = 0; i < data.length; i++) {
                         arrayPoints.push(new google.maps.LatLng(data[i].POINTS.lat, data[i].POINTS.lng));
                     }
+                    $('#infos').html('<p class="pull-left"> Ocorrências: <b>' + data.length + '</b></p><br>');
 
                     heatmap.setMap(null);
 
                     heatmap = new google.maps.visualization.HeatmapLayer({
                         data: arrayPoints,
                         map: map,
-                        maxIntensity: 5,
+                        maxIntensity: 8,
                     });
                 });
             });
@@ -149,7 +150,7 @@
                 heatmap = new google.maps.visualization.HeatmapLayer({
                     data: data,
                     map: map,
-                    maxIntensity: 5,
+                    maxIntensity: 8,
                 });
             });
         }
