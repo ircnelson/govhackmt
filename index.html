@@ -106,7 +106,11 @@
                 var selectBairros1 = $('#selectBairros1').val();
                 var selectBairros2 = $('#selectBairros2').val();
 
-                if(selectBairros1 && selectBairros2){
+                if(selectBairros1 && !selectBairros2){
+                    var bairrosDetail =  'http://felipefontana.com.br:49160/bairros/'+ selectBairros1;
+                else if(!selectBairros1 && selectBairros2)
+                    var bairrosDetail =  'http://felipefontana.com.br:49160/bairros/'+ selectBairros2;
+                else
                     var bairrosDetail =  'http://felipefontana.com.br:49160/bairros/'+ selectBairros1 +','+ selectBairros2;
 
                     var arrayPoints= [];
